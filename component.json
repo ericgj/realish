@@ -1,0 +1,13 @@
+{
+  "name": "realish",
+  "repo": "ericgj/realish",
+  "description": "Data faking/obfuscation library based on real data",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "scripts": [
+    "index.js"
+  ]
+}
