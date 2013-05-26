@@ -1,6 +1,5 @@
 var Realish =  require('../index.js')
   , assert = require('assert')
-//  , stub   = require('ministub');
 
 module.exports = {
 
@@ -53,7 +52,7 @@ module.exports = {
   "obscureWords": function(){
     var actual = this.subject.obscureWords('name', '-').get();
     assert.equal( actual[4].name, '---- -----');
-  }
+  },
 
   /* unclear how to test this ATM
     "scrambleDigits": function(){
@@ -61,5 +60,43 @@ module.exports = {
       assert.equal( actual[1].phone, this.data[1].phone);
     }
   */
+  
+  "randomRecord": function(){
+    var subj = this.subject, actual;
+    stub(Math,'random', 3/this.data.length, function(){
+      actual = subj.randomRecord('name').get();
+    });
+    assert.equal( actual[1].name, this.data[3].name );
+  },
 
+  "random": function(){
+    var subj = this.subject, actual;
+    var choices = ['a','b','c','d'];
+    stub(Math,'random', 2/choices.length, function(){
+      actual = subj.random('email', choices).get();
+    });
+    assert.equal( actual[1].email, choices[2] );
+  }
+
+}
+
+
+function stub(obj, name, val_or_fn, fn){
+  try {
+    var newName = "__ministub__" + name;
+    obj[newName] = obj[name];
+    obj[name] = function(){
+      if (typeof val_or_fn == 'function') {
+        return val_or_fn.apply(this, arguments);
+      } else {
+        return val_or_fn;
+      }
+    };
+
+    return fn(obj);
+
+  } finally {
+    obj[name] = obj[newName];
+    delete obj[newName];
+  }
 }
