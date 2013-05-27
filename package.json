@@ -21,7 +21,7 @@
     "faker"
   ],
   "author": "Eric Gjertsen",
-  "license": "MIT"
+  "license": "MIT",
   "dependencies": {
     "commander": "1.0.5"
   }
