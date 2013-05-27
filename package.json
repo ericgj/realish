@@ -9,6 +9,9 @@
   "scripts": {
     "test": "mocha test/test.js --ui exports"
   },
+  "bin": {
+    "realish": "bin/realish"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/ericgj/realish.git"
