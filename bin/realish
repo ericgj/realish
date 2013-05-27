@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+var program = require('commander')
+  , Realish = require('../index.js')
+  , fs      = require('fs')
+
+program.usage('filter.json < input.json > output.json');
+
+program.parse(process.argv);
+
+var filter = program.args[0];
+
+if (!filter) fatal('filter file not given');
+
+filter = JSON.parse(fs.readFileSync(filter));
+
+var str = '';
+process.stdin.setEncoding('utf-8');
+process.stdin.on('data', function(chunk){ str += chunk });
+process.stdin.on('end', done);
+process.stdin.resume();
+
+function done(){
+  var data = Realish(JSON.parse(str),filter);
+  process.stdout.write(JSON.stringify(data));
+}
+
+function fatal(){
+  console.error.apply(null, arguments);
+  process.exit(1);
+}

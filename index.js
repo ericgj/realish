@@ -1,14 +1,21 @@
-// realish(data).fake('email', realish.obscureDigits() ).get()
-
 var identical = function(val){ return val; }
 
 module.exports = Realish;
 
-function Realish(data){
-  if (!(this instanceof Realish)) return new Realish(data);
+function Realish(data,spec){
+  if (!(this instanceof Realish)) return new Realish(data,spec);
   this.data = data;
   this._transforms = {};
   this._excludes = [];
+  if (spec) this.applySpec(spec);
+}
+
+// TODO throw error if no function this[spec[name]]
+Realish.prototype.applySpec = function(spec){
+  for (var name in spec){
+    this[spec[name]](name);
+  }
+  return this;
 }
 
 Realish.prototype.fake = function(name, fn){
@@ -77,6 +84,7 @@ Realish.prototype.get = function(){
 
 Realish.obscure = function(matcher,ch){
   return function(val){ 
+    if (!val) return val;
     return val.replace(matcher || /./g, ch || '*'); 
   };
 }
@@ -86,6 +94,7 @@ Realish.obscureWords  = function(ch){ return this.obscure(/\w/g,ch); }
 
 Realish.scramble = function(matcher){
   return function(val){ 
+    if (!val) return val;
     var ms = val.match(matcher || /./g)
       , shuf = shuffle(ms);
     return val.replace(matcher,function(){return shuf.shift();});

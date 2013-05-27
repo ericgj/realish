@@ -76,8 +76,13 @@ module.exports = {
       actual = subj.random('email', choices).get();
     });
     assert.equal( actual[1].email, choices[2] );
-  }
+  },
 
+  "applySpec": function(){
+    var actual = this.subject.applySpec({email: 'obscureWords', phone: 'obscureDigits'}).get();
+    assert.equal( actual[1].email, '*********@*******.***');
+    assert.equal( actual[2].phone, '***-***-****');
+  }
 }
 
 

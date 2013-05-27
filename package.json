@@ -1,0 +1,25 @@
+{
+  "name": "realish",
+  "version": "0.0.1",
+  "description": "Data faking/obfuscation library based on real data",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/test.js --ui exports"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ericgj/realish.git"
+  },
+  "keywords": [
+    "fake",
+    "faker"
+  ],
+  "author": "Eric Gjertsen",
+  "license": "MIT"
+  "dependencies": {
+    "commander": "1.0.5"
+  }
+}
