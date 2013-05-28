@@ -23,9 +23,28 @@
   
     $ component install ericgj/realish
 
+## Usage
+
+```javascript
+var faked = Realish(data)
+              .obscureDigits('ssn')
+              .scrambleWords('secret')
+              .randomRecord('lastname')
+              .randomEmail('email')
+              .random('status', ['single','married','dependent',null])
+              .fake('firstname', function(val,rec,recno){ return rec.codename; })
+              .exclude('salt','key','bankno')
+
+process.stdout.write(JSON.stringify(faked));
+```
+
+or command-line:
+
+    $ realish filter.json < input.json > output.json
+
 ## API
 
-  TODO
+TODO
 
 ## License
 
