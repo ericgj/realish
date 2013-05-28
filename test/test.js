@@ -78,6 +78,13 @@ module.exports = {
     assert.equal( actual[1].email, choices[2] );
   },
 
+  /* again, unclear how to test this 
+    "randomEmail": function(){
+      var actual = this.subject.randomEmail('email').get();
+      assert.equal( actual[2].email, this.data[2].email );
+    },
+  */
+
   "applySpec": function(){
     var actual = this.subject.applySpec({email: 'obscureWords', phone: 'obscureDigits'}).get();
     assert.equal( actual[1].email, '*********@*******.***');

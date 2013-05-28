@@ -51,6 +51,10 @@ Realish.prototype.randomRecord = function(name, other){
   return this.fake(name, Realish.randomRecord(other || name));
 }
 
+Realish.prototype.randomEmail = function(name){
+  return this.fake(name, Realish.randomEmail(name));
+}
+
 Realish.prototype.random = function(name, choices){
   return this.fake(name, Realish.random(choices));
 }
@@ -116,7 +120,18 @@ Realish.random = function(choices){
   }
 }
 
-
+Realish.randomEmail = function(name){
+  return function(){
+    var e1 = Realish.randomRecord(name).call(this),
+        e2 = Realish.randomRecord(name).call(this),
+        e3 = Realish.randomRecord(name).call(this)
+    if (!(e1 || e2 || e3)) return null;
+    return (e1 || e2 || e3).match(/^[^@]+(?=@)/)[0] + 
+           (e2 || e3 || e1).match(/@[^\.]+/)[0] +
+           (e3 || e1 || e2).match(/\.\w+$/)[0];
+  }
+}
+           
 // private
 
 function indexOf(arr,obj){
